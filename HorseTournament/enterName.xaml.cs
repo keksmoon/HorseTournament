@@ -2,10 +2,12 @@
 using System.Windows.Input;
 
 namespace HorseTournament {
+
     /// <summary>
     /// Логика взаимодействия для enterName.xaml
     /// </summary>
     public partial class enterName : Window {
+
         public enterName() {
             InitializeComponent();
         }
@@ -21,7 +23,7 @@ namespace HorseTournament {
         }
 
         private void dragStartGameForm(object sender, MouseButtonEventArgs e) {
-            if (e.LeftButton == MouseButtonState.Pressed) 
+            if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
         }
     }

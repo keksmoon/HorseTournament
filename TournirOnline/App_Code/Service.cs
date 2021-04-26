@@ -1,15 +1,13 @@
-﻿using System;
+﻿using GameClientSpace;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
-using GameClientSpace;
 
 // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Реструктуризация" можно использовать для одновременного изменения имени класса "Service" в коде, SVC-файле и файле конфигурации.
-public class Service : IService
-{
-	public void SetData(Record[] data)
-	{
+public class Service : IService {
+
+    public void SetData(Record[] data) {
         if (data == null)
             return;
 
@@ -64,7 +62,6 @@ public class Service : IService
     }
 
     public bool ContainsRoom(string room) {
-        
         string fileName = @"E:\Rooms\u513812\teterint.ru\www\wcf4\rooms\" + room + ".xml";
 
         if (File.Exists(fileName)) {
@@ -74,8 +71,10 @@ public class Service : IService
         return false;
     }
 }
+
 [DataContract]
 public class Record : IComparable<Record> {
+
     [DataMember]
     public string FirstPlayer { get; set; }
 

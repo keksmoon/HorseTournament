@@ -4,18 +4,21 @@ using System.IO;
 using System.Linq;
 
 namespace GameClientSpace {
+
     [Serializable]
     public class Pair {
         public int I, J;
         public int IJ;
 
-        public Pair() { }
+        public Pair() {
+        }
 
         public Pair(int I, int J) {
             this.I = I;
             this.J = J;
             IJ = int.Parse($"{I}{J}");
         }
+
         public override bool Equals(object obj) {
             var other = obj as Pair;
             if (other == null) return false;
@@ -28,8 +31,10 @@ namespace GameClientSpace {
 
     [Serializable]
     public class GameClient {
+
         //Запоминаем предыдущие позиции, чтобы их возвращать в исходное состояние
         public List<Pair> previousPossibleMove; // Предыдущие возможные ходы
+
         public Pair previousMove; // Предыдущий ход
         public Pair prePreviousMove;
 
@@ -67,7 +72,7 @@ namespace GameClientSpace {
             }
 
             if (previousMove != null)
-            prePreviousMove = new Pair(previousMove.I, previousMove.J);
+                prePreviousMove = new Pair(previousMove.I, previousMove.J);
             previousMove = new Pair(i, j);
             OldMove.Add(previousMove);
             CntMoves++;

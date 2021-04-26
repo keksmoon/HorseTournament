@@ -1,17 +1,17 @@
-﻿using System;
+﻿using GameClientSpace;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using GameClientSpace;
 
 namespace HorseTournament {
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -19,6 +19,7 @@ namespace HorseTournament {
         private int Mode = -1; // 0 - Network; 1 - OnePlayer; 2 - TwoPlayer
         private GameClient gameClient = null;
         private SoundPlayer mediaBG;
+
         public MainWindow() {
             InitializeComponent();
             GameFieldInit();
@@ -60,10 +61,10 @@ namespace HorseTournament {
             // Чистим метки на кнопках возможных ходов сделанных на предыдущем ходе
             foreach (var previousNextPossibleMove in gameClient.previousPossibleMove) {
                 var mychild = (Button)GameField.Children[previousNextPossibleMove.IJ];
-                mychild.Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
+                 mychild.Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
             }
 
-            // Помечаем поле предыдущего хода пройденным. 
+            // Помечаем поле предыдущего хода пройденным.
             ((Button)GameField.Children[gameClient.previousMove.IJ]).Background = greenHome;
 
             var robotChild = (Button)GameField.Children[position];
@@ -71,10 +72,10 @@ namespace HorseTournament {
             robotChild.Background = red;
 
             var nextPossibleMoves = gameClient.MoveTo(gameClient.previousPossibleMove[d].I, gameClient.previousPossibleMove[d].J);
-            foreach (var nextPossibleMove in nextPossibleMoves) {
-                robotChild = (Button)GameField.Children[nextPossibleMove.IJ];
-                robotChild.Background = new SolidColorBrush(Color.FromRgb(100, 200, 100));
-            }
+            //foreach (var nextPossibleMove in nextPossibleMoves) {
+            //    robotChild = (Button)GameField.Children[nextPossibleMove.IJ];
+            //    robotChild.Background = new SolidColorBrush(Color.FromRgb(100, 200, 100));
+            //}
         }
 
         // Иконки: красный игрок, зеленый игрок
@@ -106,7 +107,7 @@ namespace HorseTournament {
                 //foreach (var previousNextPossibleMove in gameClient.previousPossibleMove)
                 //    ((Button)GameField.Children[previousNextPossibleMove.IJ]).Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
 
-                // Помечаем поле предыдущего хода пройденным. 
+                // Помечаем поле предыдущего хода пройденным.
                 //((Button)GameField.Children[gameClient.previousMove.IJ]).Background = gameClient.FirstOrSecondGamer == 1 ? greenHome : redHome;
                 if (gameClient.CntMoves > 1) {
                     ((Button)GameField.Children[gameClient.prePreviousMove.IJ]).Background = gameClient.FirstOrSecondGamer == 1 ? greenHome : redHome;
@@ -208,9 +209,6 @@ namespace HorseTournament {
             RecordsField.Visibility = Visibility.Visible;
         }
 
-        TourWCF.ServiceClient client;
-        string roomCode;
-        int myColor;
         private void BackFromRecordsButtonClick(object sender, RoutedEventArgs e) {
             SettingFieldWelcome.Visibility = Visibility.Visible;
             RecordsField.Visibility = Visibility.Hidden;
@@ -243,7 +241,6 @@ namespace HorseTournament {
                 data.Add(record);
 
                 service.SetData(data.ToArray());
-                service.SetField(gameClient, roomCode);
 
                 service.Close();
             }
@@ -263,6 +260,7 @@ namespace HorseTournament {
         }
 
         #region Кнопки управления окном программы
+
         // Закрытия программы (красная кнопка)
         private void CloseAppClick(object sender, RoutedEventArgs e) => Close();
 
@@ -284,7 +282,8 @@ namespace HorseTournament {
             if (but.Style == (Style)Application.Current.FindResource("SoundButtonOn")) {
                 but.Style = (Style)Application.Current.FindResource("SoundButtonOff");
                 mediaBG.Stop();
-            } else {
+            }
+            else {
                 but.Style = (Style)Application.Current.FindResource("SoundButtonOn");
                 mediaBG.Play();
             }
@@ -340,7 +339,6 @@ namespace HorseTournament {
                 DragMove();
         }
 
-
-        #endregion
+        #endregion Кнопки управления окном программы
     }
 }

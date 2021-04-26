@@ -17,29 +17,29 @@
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="580*"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="580*" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
         <Image Source="Images/logo.png"
                Grid.Row="1"
                Grid.Column="1"
                VerticalAlignment="Center"
-               HorizontalAlignment="Center"/>
+               HorizontalAlignment="Center" />
 
         <ScrollViewer Grid.Row="2" Grid.Column="1"
                       VerticalScrollBarVisibility="Hidden">
             <Image Source="Images/rule.png"
-                   Margin="10,15,15,15"/>
+                   Margin="10,15,15,15" />
         </ScrollViewer>
         <Button Grid.Row="3"
                 Grid.Column="1"

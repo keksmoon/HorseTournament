@@ -17,19 +17,19 @@
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="10" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
         <Image Source="Images/logo.png"
@@ -37,24 +37,24 @@
                Grid.Column="1"
                Grid.ColumnSpan="2"
                VerticalAlignment="Center"
-               HorizontalAlignment="Center"/>
+               HorizontalAlignment="Center" />
 
         <Image Source="Images/player1.png"
                Grid.Row="2"
                Grid.Column="1"
                VerticalAlignment="Center"
                HorizontalAlignment="Right"
-               Margin="10,10,10,10"/>
+               Margin="10,10,10,10" />
 
         <TextBox x:Name="namePlayer1"
                  Grid.Row="2"
                  Grid.Column="2"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
-                 Margin="10,10,10,10" 
+                 Margin="10,10,10,10"
                  Width="270" Height="70"
                  VerticalContentAlignment="Center"
-                 HorizontalContentAlignment="Center" 
+                 HorizontalContentAlignment="Center"
                  MaxLength="10"
                  FontSize="30">
         </TextBox>
@@ -64,14 +64,14 @@
                Grid.Column="1"
                VerticalAlignment="Center"
                HorizontalAlignment="Right"
-               Margin="10,10,10,10"/>
+               Margin="10,10,10,10" />
 
         <TextBox x:Name="namePlayer2"
                  Grid.Row="3"
                  Grid.Column="2"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
-                 Margin="10,10,10,10" 
+                 Margin="10,10,10,10"
                  Width="270" Height="70"
                  VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Center"
