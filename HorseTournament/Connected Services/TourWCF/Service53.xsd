@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/GameClientSpace" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/GameClientSpace" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://teterint.ru/wcf4/Service.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="GameClient">
+    <xs:sequence>
+      <xs:element name="CntMoves" type="xs:int" />
+      <xs:element name="FirstOrSecondGamer" type="xs:int" />
+      <xs:element name="MovesLeft" type="xs:int" />
+      <xs:element name="OldMove" nillable="true" type="tns:ArrayOfPair" />
+      <xs:element name="_x003C_firstPlayer_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element name="_x003C_secondPlayer_x003E_k__BackingField" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="movex" nillable="true" type="q1:ArrayOfArrayOfint" />
+      <xs:element name="previousMove" nillable="true" type="tns:Pair" />
+      <xs:element name="previousPossibleMove" nillable="true" type="tns:ArrayOfPair" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameClient" nillable="true" type="tns:GameClient" />
+  <xs:complexType name="ArrayOfPair">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Pair" nillable="true" type="tns:Pair" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPair" nillable="true" type="tns:ArrayOfPair" />
+  <xs:complexType name="Pair">
+    <xs:sequence>
+      <xs:element name="I" type="xs:int" />
+      <xs:element name="IJ" type="xs:int" />
+      <xs:element name="J" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pair" nillable="true" type="tns:Pair" />
+</xs:schema>

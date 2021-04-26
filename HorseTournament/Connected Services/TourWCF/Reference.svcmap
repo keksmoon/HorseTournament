@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="48262f38-7508-4867-9446-6502cd6675d4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://teterint.ru/wcf4/Service.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service5.xsd" MetadataType="Schema" ID="4731d37b-9cee-40ec-aee8-8e673ff472a7" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service51.xsd" MetadataType="Schema" ID="65968e6f-2a10-4014-8e1f-72209f6dfaba" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?xsd=xsd4" />
+    <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="84ee8c85-b039-4b06-8a0f-34a9eca94db9" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?wsdl" />
+    <MetadataFile FileName="Service52.xsd" MetadataType="Schema" ID="8f1d6426-39f7-44c2-85b5-e2686b103c10" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service53.xsd" MetadataType="Schema" ID="35723377-dcf0-4e71-affb-29fa4bc649c9" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?xsd=xsd3" />
+    <MetadataFile FileName="Service1.disco" MetadataType="Disco" ID="3f67ac94-e8c7-422e-b04d-f3de2457906a" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?disco" />
+    <MetadataFile FileName="Service54.xsd" MetadataType="Schema" ID="9186d60e-6d99-419d-be4c-a1da4a46d8e8" SourceId="1" SourceUrl="http://teterint.ru/wcf4/Service.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
