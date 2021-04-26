@@ -3,37 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorseTournament", "HorseTournament\HorseTournament.csproj", "{7F18281A-066F-40F3-8156-6DC648B069B3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B9C37D2D-0693-4AE7-9882-D906A21FE1B0} = {B9C37D2D-0693-4AE7-9882-D906A21FE1B0}
-	EndProjectSection
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TournirOnline", "TournirOnline\", "{B9C37D2D-0693-4AE7-9882-D906A21FE1B0}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
-		ProjectReferences = "{eecdddff-9f3f-46c8-8a34-8c6c7f9e461b}|GameClient.dll;"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_51288"
-		Debug.AspNetCompiler.PhysicalPath = "TournirOnline\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51288\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_51288"
-		Release.AspNetCompiler.PhysicalPath = "TournirOnline\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51288\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "51288"
-		SlnRelativePath = "TournirOnline\"
-		DefaultWebSiteLanguage = "Visual C#"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameClient", "GameClient\GameClient.csproj", "{EECDDDFF-9F3F-46C8-8A34-8C6C7F9E461B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{3CF7FFBE-A031-43E0-8B6F-98EB3FD72952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{3CF7FFBE-A031-43E0-8B6F-98EB3FD72952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,18 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7F18281A-066F-40F3-8156-6DC648B069B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F18281A-066F-40F3-8156-6DC648B069B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F18281A-066F-40F3-8156-6DC648B069B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F18281A-066F-40F3-8156-6DC648B069B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9C37D2D-0693-4AE7-9882-D906A21FE1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9C37D2D-0693-4AE7-9882-D906A21FE1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9C37D2D-0693-4AE7-9882-D906A21FE1B0}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9C37D2D-0693-4AE7-9882-D906A21FE1B0}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{EECDDDFF-9F3F-46C8-8A34-8C6C7F9E461B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EECDDDFF-9F3F-46C8-8A34-8C6C7F9E461B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EECDDDFF-9F3F-46C8-8A34-8C6C7F9E461B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EECDDDFF-9F3F-46C8-8A34-8C6C7F9E461B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CF7FFBE-A031-43E0-8B6F-98EB3FD72952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3CF7FFBE-A031-43E0-8B6F-98EB3FD72952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CF7FFBE-A031-43E0-8B6F-98EB3FD72952}.Release|Any CPU.ActiveCfg = Release|Any CPU
