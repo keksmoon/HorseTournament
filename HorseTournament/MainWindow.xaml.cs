@@ -273,12 +273,10 @@ namespace HorseTournament {
             if (but.Style == (Style)Application.Current.FindResource("HelpButtonOff")) {
                 but.Style = (Style)Application.Current.FindResource("HelpButtonOn");
                 help = true;
-                mediaBG.Stop();
             }
             else {
                 but.Style = (Style)Application.Current.FindResource("HelpButtonOff");
                 help = false;
-                mediaBG.Play();
             }
         }
 
