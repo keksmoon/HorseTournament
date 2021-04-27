@@ -11,14 +11,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace HorseTournament {
-
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window {
-        private int Mode = -1; // 0 - Network; 1 - OnePlayer; 2 - TwoPlayer
         private GameClient gameClient = null;
+        private bool help = false;
         private SoundPlayer mediaBG;
+        // Иконки: красный игрок, зеленый игрок
+        //         красная крепость, зеленая крепость
+        public static ImageBrush redHome = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/redHome.png")));
+        public static ImageBrush greenHome = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/greenHome.png")));
+        public static ImageBrush green = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/greenPlr.png")));
+        public static ImageBrush red = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/redPlr.png")));
 
         public MainWindow() {
             InitializeComponent();
@@ -41,55 +43,35 @@ namespace HorseTournament {
         private void RobotGo() {
             if (gameClient.previousPossibleMove.Count == 0) return;
 
-            Pair maxMove = new Pair(0, 0); int max = int.MaxValue; int d = 0;
-            var varmove = gameClient.previousPossibleMove;
-            for (int i = 0; i < varmove.Count; i++) {
-                var s = gameClient.GetVarMoves(varmove[i].I, varmove[i].J);
-                if (s.Count < max) {
-                    max = s.Count;
-                    maxMove.I = varmove[i].I;
-                    maxMove.J = varmove[i].J;
-                    maxMove.IJ = varmove[i].IJ;
-                    d = i;
-                }
-            }
-
-            //var rnd = new Random(DateTime.Now.Millisecond);
-            //int Move = rnd.Next(0, gameClient.MovesLeft);
-            int position = gameClient.previousPossibleMove[d].IJ;
-
-            // Чистим метки на кнопках возможных ходов сделанных на предыдущем ходе
+            //Чистим метки на кнопках возможных ходов сделанных на предыдущем ходе
+            if (help)
             foreach (var previousNextPossibleMove in gameClient.previousPossibleMove) {
                 var mychild = (Button)GameField.Children[previousNextPossibleMove.IJ];
-                 mychild.Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
+               mychild.Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
             }
 
-            // Помечаем поле предыдущего хода пройденным.
-            ((Button)GameField.Children[gameClient.previousMove.IJ]).Background = greenHome;
+            if (gameClient.previousRedMove != null)
+                ((Button)GameField.Children[gameClient.previousRedMove.IJ]).Background = redHome;
 
-            var robotChild = (Button)GameField.Children[position];
+            var newMove = gameClient.GetRobotMove();
+
+            var robotChild = (Button)GameField.Children[newMove.IJ];
             robotChild.IsEnabled = false;
             robotChild.Background = red;
 
-            var nextPossibleMoves = gameClient.MoveTo(gameClient.previousPossibleMove[d].I, gameClient.previousPossibleMove[d].J);
-            //foreach (var nextPossibleMove in nextPossibleMoves) {
-            //    robotChild = (Button)GameField.Children[nextPossibleMove.IJ];
-            //    robotChild.Background = new SolidColorBrush(Color.FromRgb(100, 200, 100));
-            //}
-        }
+            nextMoveGo.Text = gameClient.FirstOrSecondGamer == 0 ? "Green" : "Red";
+            nextMoveGo.Foreground = gameClient.FirstOrSecondGamer == 0 ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
-        // Иконки: красный игрок, зеленый игрок
-        //         красная крепость, зеленая крепость
-        public static ImageBrush redHome = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/redHome.png")));
-        public static ImageBrush greenHome = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/greenHome.png")));
-        public static ImageBrush green = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/greenPlr.png")));
-        public static ImageBrush red = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/redPlr.png")));
+            if (help)
+            foreach (var nextPossibleMove in gameClient.GetVarMoves(newMove.I, newMove.J)) {
+                robotChild = (Button)GameField.Children[nextPossibleMove.IJ];
+                robotChild.Background = new SolidColorBrush(Color.FromRgb(100, 200, 100));
+            }
+        }
 
         /// <summary>
         /// Алгоритм сделанного хода
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void HorseGo_ButtonClick(object sender, RoutedEventArgs e) {
             var but = (Button)sender;
             int position = int.Parse(but.Name.Substring(1));
@@ -104,14 +86,15 @@ namespace HorseTournament {
                 }
 
                 // Чистим метки на кнопках возможных ходов сделанных на предыдущем ходе
-                //foreach (var previousNextPossibleMove in gameClient.previousPossibleMove)
-                //    ((Button)GameField.Children[previousNextPossibleMove.IJ]).Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
+                if (help)
+                foreach (var previousNextPossibleMove in gameClient.previousPossibleMove)
+                    ((Button)GameField.Children[previousNextPossibleMove.IJ]).Background = new SolidColorBrush(Color.FromRgb(240, 248, 255));
 
                 // Помечаем поле предыдущего хода пройденным.
-                //((Button)GameField.Children[gameClient.previousMove.IJ]).Background = gameClient.FirstOrSecondGamer == 1 ? greenHome : redHome;
-                if (gameClient.CntMoves > 1) {
-                    ((Button)GameField.Children[gameClient.prePreviousMove.IJ]).Background = gameClient.FirstOrSecondGamer == 1 ? greenHome : redHome;
-                }
+                if (gameClient.FirstOrSecondGamer == 0 && gameClient.previousGreenMove != null)
+                    ((Button)GameField.Children[gameClient.previousGreenMove.IJ]).Background = greenHome;
+                else if ((gameClient.FirstOrSecondGamer == 1 && gameClient.previousRedMove != null))
+                    ((Button)GameField.Children[gameClient.previousRedMove.IJ]).Background = redHome;
             }
 
             // Делаем новый ход
@@ -122,13 +105,15 @@ namespace HorseTournament {
             nextMoveGo.Text = gameClient.FirstOrSecondGamer == 1 ? "Green" : "Red";
             nextMoveGo.Foreground = gameClient.FirstOrSecondGamer == 1 ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
-            // Отрисовываем новые возможные ходы
-            var NextPossibleMoves = gameClient.MoveTo(i, j);
-            //foreach (var nextPossibleMove in NextPossibleMoves)
-            //    ((Button)GameField.Children[nextPossibleMove.IJ]).Background = gameClient.FirstOrSecondGamer == 1 ?
-            //        new SolidColorBrush(Color.FromRgb(255, 83, 73)) : new SolidColorBrush(Color.FromRgb(100, 200, 100));
+            gameClient.MoveTo(i, j);
 
-            if (Mode == 1 && gameClient.FirstOrSecondGamer == 1) RobotGo();
+            if (help)
+            foreach (var nextPossibleMove in gameClient.GetVarMoves(i, j))
+                ((Button)GameField.Children[nextPossibleMove.IJ]).Background = gameClient.FirstOrSecondGamer == 1 ?
+                   new SolidColorBrush(Color.FromRgb(255, 83, 73)) : new SolidColorBrush(Color.FromRgb(100, 200, 100));
+
+            if (gameClient.GameMode == 1 && gameClient.FirstOrSecondGamer == 1) 
+                RobotGo();
 
             if (gameClient.MovesLeft == 0) {
                 if (gameClient.OldMove.Count == 100) {
@@ -149,17 +134,17 @@ namespace HorseTournament {
             }
             else return;
 
-            Mode = 2;
             gameModeText.Text = "Играют двое";
             SettingFieldWelcome.Visibility = Visibility.Hidden;
             SettingField.Visibility = Visibility.Visible;
             StopButton.Visibility = Visibility.Visible;
             GameField.IsEnabled = true;
+            HelpButton.IsEnabled = false;
 
             greenPlayerName.Text = nameFirst;
             redPlayerName.Text = nameSecond;
 
-            gameClient = new GameClient();
+            gameClient = new GameClient(2);
         }
 
         private void OnePlayerModeButtonClick(object sender, RoutedEventArgs e) {
@@ -173,17 +158,17 @@ namespace HorseTournament {
             }
             else return;
 
-            Mode = 1;
             gameModeText.Text = "Играет один";
             SettingFieldWelcome.Visibility = Visibility.Hidden;
             SettingField.Visibility = Visibility.Visible;
             StopButton.Visibility = Visibility.Visible;
             GameField.IsEnabled = true;
+            HelpButton.IsEnabled = false;
 
             greenPlayerName.Text = nameFirst;
             redPlayerName.Text = nameSecond;
 
-            gameClient = new GameClient();
+            gameClient = new GameClient(1);
         }
 
         private void RulesOpenButtonClick(object sender, RoutedEventArgs e) => new rules().ShowDialog();
@@ -191,8 +176,6 @@ namespace HorseTournament {
         /// <summary>
         /// Лист Рекордов
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RecordsButtonClick(object sender, RoutedEventArgs e) {
             recordsList.Items.Clear();
 
@@ -217,8 +200,6 @@ namespace HorseTournament {
         /// <summary>
         /// Выход из режима игры в Меню
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void StopButtonClick(object sender, RoutedEventArgs e) {
             if (gameClient == null)
                 return;
@@ -247,15 +228,12 @@ namespace HorseTournament {
 
             greenPlayerName.Text = string.Empty;
             redPlayerName.Text = string.Empty;
-            //myColor = -1;
-            //client.Close();
-            //roomCode = string.Empty;
             gameClient = null;
             GameFieldInit();
-            Mode = -1;
             SettingFieldWelcome.Visibility = Visibility.Visible;
             SettingField.Visibility = Visibility.Hidden;
             GameField.IsEnabled = false;
+            HelpButton.IsEnabled = true;
             StopButton.Visibility = Visibility.Hidden;
         }
 
@@ -289,6 +267,21 @@ namespace HorseTournament {
             }
         }
 
+        private void HelpOnAppClick(object sender, RoutedEventArgs e) {
+            var but = (Button)sender;
+
+            if (but.Style == (Style)Application.Current.FindResource("HelpButtonOff")) {
+                but.Style = (Style)Application.Current.FindResource("HelpButtonOn");
+                help = true;
+                mediaBG.Stop();
+            }
+            else {
+                but.Style = (Style)Application.Current.FindResource("HelpButtonOff");
+                help = false;
+                mediaBG.Play();
+            }
+        }
+
         /// <summary>
         /// Метод инициализации игрового поля.
         /// </summary>
@@ -314,8 +307,6 @@ namespace HorseTournament {
         /// <summary>
         /// Изменение размеров окна
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SizeChangingGameField(object sender, SizeChangedEventArgs e) {
             var gridHeight = GameGrid.RowDefinitions[0].ActualHeight - 20;
             var gridWidth = GameGrid.ColumnDefinitions[1].ActualWidth - 20;
@@ -332,8 +323,6 @@ namespace HorseTournament {
         /// <summary>
         /// Возможность перетягивать форму за меню
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Menu_MouseDown(object sender, MouseButtonEventArgs e) {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();

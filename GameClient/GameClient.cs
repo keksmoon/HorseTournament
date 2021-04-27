@@ -6,21 +6,19 @@ using System.Linq;
 namespace GameClientSpace {
 
     [Serializable]
-    public class Pair {
-        public int I, J;
-        public int IJ;
+    public class Move {
+        public int I, J, IJ;
 
-        public Pair() {
-        }
+        public Move() { }
 
-        public Pair(int I, int J) {
+        public Move(int I, int J) {
             this.I = I;
             this.J = J;
             IJ = int.Parse($"{I}{J}");
         }
 
         public override bool Equals(object obj) {
-            var other = obj as Pair;
+            var other = obj as Move;
             if (other == null) return false;
 
             return IJ == other.IJ;
@@ -33,36 +31,34 @@ namespace GameClientSpace {
     public class GameClient {
 
         //Запоминаем предыдущие позиции, чтобы их возвращать в исходное состояние
-        public List<Pair> previousPossibleMove; // Предыдущие возможные ходы
+        public List<Move> previousPossibleMove; // Предыдущие возможные ходы
 
-        public Pair previousMove; // Предыдущий ход
-        public Pair prePreviousMove;
+        public Move previousGreenMove;
+        public Move previousRedMove;// Предыдущий ход
 
-        public int[][] movex;
+        public int[][] movex; // Матрица ходов
 
-        public HashSet<Pair> OldMove; // Завоеванные замки
+        public HashSet<Move> OldMove; // Завоеванные замки
         public int FirstOrSecondGamer; // Номер ходящего игрока
         public int MovesLeft; // Количество возможных ходов
 
-        public int CntMoves;
+        public int CntMoves; // Количество ходов в партии
 
-        public string firstPlayer { get; set; } = string.Empty;
-        public string secondPlayer { get; set; } = string.Empty;
+        public int GameMode;
 
-        /// <summary>
-        /// Определение возможных следующих ходов
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns>Коллекция ходов</returns>
-        public IEnumerable<Pair> MoveTo(int i, int j) {
+        public void MoveTo(int i, int j) {
             movex[i][j] = FirstOrSecondGamer == 0 ? 30 : 31;
 
             // 0 - зеленый
             // 1 - красный
 
-            if (previousMove != null)
+            if (OldMove.Count > 0) {
+                var previousMove = OldMove.Last();
                 movex[previousMove.I][previousMove.J] = FirstOrSecondGamer == 0 ? 11 : 10;
+
+                if (movex[previousMove.I][previousMove.J] % 10 == 0) previousGreenMove = previousMove;
+                else previousRedMove = previousMove;
+            }
 
             if (previousPossibleMove != null) {
                 foreach (var m in previousPossibleMove) {
@@ -71,82 +67,66 @@ namespace GameClientSpace {
                 }
             }
 
-            if (previousMove != null)
-                prePreviousMove = new Pair(previousMove.I, previousMove.J);
-            previousMove = new Pair(i, j);
-            OldMove.Add(previousMove);
+            OldMove.Add(new Move(i, j));
             CntMoves++;
 
             FirstOrSecondGamer = (FirstOrSecondGamer + 1) % 2;
 
             var result = GetVarMoves(i, j);
-
-            foreach (var m in result) {
-                movex[m.I][m.J] = FirstOrSecondGamer == 0 ? 20 : 21;
-            }
+            foreach (var m in result) movex[m.I][m.J] = FirstOrSecondGamer == 0 ? 20 : 21;
 
             MovesLeft = result.Count();
             previousPossibleMove = result;
-
-            StreamWriter sw = new StreamWriter("debug.txt");
-            for (int ii = 0; ii < 10; ii++) {
-                for (int jj = 0; jj < 10; jj++) {
-                    sw.Write(movex[ii][jj] + " ");
-                }
-                sw.WriteLine();
-            }
-            sw.Close();
-
-            return result;
         }
 
-        public List<Pair> GetVarMoves(int i, int j) {
-            List<Pair> result = new List<Pair>();
+        public List<Move> GetVarMoves(int i, int j) {
+            var result = new List<Move>();
+            Move move;
 
             if (i + 1 < 10) {
                 if (j + 2 < 10) {
-                    Pair move = new Pair(i + 1, j + 2);
+                    move = new Move(i + 1, j + 2);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
                 if (j - 2 >= 0) {
-                    Pair move = new Pair(i + 1, j - 2);
+                    move = new Move(i + 1, j - 2);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
             }
             if (i - 1 >= 0) {
                 if (j + 2 < 10) {
-                    Pair move = new Pair(i - 1, j + 2);
+                    move = new Move(i - 1, j + 2);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
                 if (j - 2 >= 0) {
-                    Pair move = new Pair(i - 1, j - 2);
+                    move = new Move(i - 1, j - 2);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
             }
             if (j + 1 < 10) {
                 if (i + 2 < 10) {
-                    Pair move = new Pair(i + 2, j + 1);
+                    move = new Move(i + 2, j + 1);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
                 if (i - 2 >= 0) {
-                    Pair move = new Pair(i - 2, j + 1);
+                    move = new Move(i - 2, j + 1);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
             }
             if (j - 1 >= 0) {
                 if (i + 2 < 10) {
-                    Pair move = new Pair(i + 2, j - 1);
+                    move = new Move(i + 2, j - 1);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
                 if (i - 2 >= 0) {
-                    Pair move = new Pair(i - 2, j - 1);
+                    move = new Move(i - 2, j - 1);
                     if (!OldMove.Contains(move))
                         result.Add(move);
                 }
@@ -155,12 +135,6 @@ namespace GameClientSpace {
             return result;
         }
 
-        /// <summary>
-        /// Проверка возможно ли сделать ход в выбранное поле
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
         public bool CanMakeMove(int i, int j) {
             bool flag = false;
             foreach (var previousNextPossibleMove in previousPossibleMove) {
@@ -173,14 +147,45 @@ namespace GameClientSpace {
             return flag;
         }
 
-        public GameClient() {
+        public void LogDebug() {
+            StreamWriter sw = new StreamWriter("debug.txt");
+            for (int ii = 0; ii < 10; ii++) {
+                for (int jj = 0; jj < 10; jj++) {
+                    sw.Write(movex[ii][jj] + " ");
+                }
+                sw.WriteLine();
+            }
+            sw.Close();
+        }
+
+        public Move GetRobotMove() {
+            int max = int.MaxValue; int minMove = 0;
+            for (int i = 0; i < previousPossibleMove.Count; i++) {
+                var s = GetVarMoves(previousPossibleMove[i].I, previousPossibleMove[i].J);
+                if (s.Count < max) {
+                    max = s.Count;
+                    minMove = i;
+                }
+            }
+
+            var newMove = previousPossibleMove[minMove];
+            MoveTo(newMove.I, newMove.J);
+
+            //var rnd = new Random(DateTime.Now.Millisecond);
+            //int Move = rnd.Next(0, gameClient.MovesLeft);
+            return newMove;
+        }
+
+        public GameClient(int gameMode) {
             FirstOrSecondGamer = 0;
             CntMoves = 0;
-            OldMove = new HashSet<Pair>();
+            OldMove = new HashSet<Move>();
 
             movex = new int[10][];
             for (int i = 0; i < 10; i++)
                 movex[i] = new int[10];
+
+            GameMode = gameMode;
         }
     }
 }

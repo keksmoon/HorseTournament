@@ -163,4 +163,42 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="HelpButtonOn" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Name="SoundButtonTemplate" TargetType="Button">
+                    <Grid>
+                        <Image x:Name="SoundButtonImage"
+                            Source="Images/faqOn.png"
+                               Width="25" Height="25" />
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SoundButtonImage" Property="Source" Value="Images/faqOff.png" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="HelpButtonOff" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Name="SoundButtonTemplate" TargetType="Button">
+                    <Grid>
+                        <Image x:Name="SoundButtonImage"
+                            Source="Images/faqOff.png"
+                               Width="25" Height="25" />
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SoundButtonImage" Property="Source" Value="Images/faqOn.png" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
