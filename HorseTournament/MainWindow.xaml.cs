@@ -131,7 +131,7 @@ namespace HorseTournament {
             if (enterName.ShowDialog() == true) {
                 nameFirst = enterName.namePlayer1.Text;
                 nameSecond = enterName.namePlayer2.Text;
-            }
+            } 
             else return;
 
             gameModeText.Text = "Играют двое";

@@ -159,20 +159,20 @@ namespace GameClientSpace {
         }
 
         public Move GetRobotMove() {
-            int max = int.MaxValue; int minMove = 0;
-            for (int i = 0; i < previousPossibleMove.Count; i++) {
-                var s = GetVarMoves(previousPossibleMove[i].I, previousPossibleMove[i].J);
-                if (s.Count < max) {
-                    max = s.Count;
-                    minMove = i;
-                }
-            }
+            //int max = int.MaxValue; int minMove = 0;
+            //for (int i = 0; i < previousPossibleMove.Count; i++) {
+            //    var s = GetVarMoves(previousPossibleMove[i].I, previousPossibleMove[i].J);
+            //    if (s.Count < max) {
+            //        max = s.Count;
+            //        minMove = i;
+            //    }
+            //}
 
-            var newMove = previousPossibleMove[minMove];
+            int Move = (new Random(DateTime.Now.Millisecond)).Next(0, MovesLeft);
+
+            var newMove = previousPossibleMove[Move];
             MoveTo(newMove.I, newMove.J);
 
-            //var rnd = new Random(DateTime.Now.Millisecond);
-            //int Move = rnd.Next(0, gameClient.MovesLeft);
             return newMove;
         }
 

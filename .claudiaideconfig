@@ -1,0 +1,21 @@
+﻿{
+  "BackgroundImageAbsolutePath": "C:\\Users\\User\\Pictures\\vs.png",
+  "BackgroundImagesDirectoryAbsolutePath": "C:\\USERS\\USER\\APPDATA\\LOCAL\\MICROSOFT\\VISUALSTUDIO\\16.0_25C518EF\\EXTENSIONS\\AQIDLUTX.C1W\\Images",
+  "ExpandToIDE": false,
+  "Extensions": ".png, .jpg, .gif, .bmp",
+  "ImageBackgroundType": 0,
+  "ImageFadeAnimationInterval": "PT0S",
+  "ImageStretch": 0,
+  "LoopSlideshow": true,
+  "MaxHeight": 0,
+  "MaxWidth": 0,
+  "Opacity": 0.35,
+  "PositionHorizon": 1,
+  "PositionVertical": 1,
+  "ShuffleSlideshow": false,
+  "SoftEdgeX": 0,
+  "SoftEdgeY": 0,
+  "UpdateImageInterval": "PT1M",
+  "ViewBoxPointX": 0,
+  "ViewBoxPointY": 0
+}
