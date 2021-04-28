@@ -10,7 +10,12 @@
         Height="600" Width="1100"
         MinHeight="458" MinWidth="808"
         WindowStyle="None"
-        ResizeMode="CanResizeWithGrip" SizeChanged="SizeChangingGameField">
+        ResizeMode="CanResizeWithGrip" 
+        SizeChanged="SizeChangingGameField" 
+        Icon="horse.png">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -50,7 +55,7 @@
                 <Grid Grid.Row="1" Grid.Column="1">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1.5*" />
                         <RowDefinition Height="10" />
                         <RowDefinition Height="9*" />
                     </Grid.RowDefinitions>
@@ -313,6 +318,8 @@
             </Grid.Effect>
 
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -320,32 +327,37 @@
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="3"
+            <Button Grid.Column="0"
                     Style="{StaticResource SoundButtonOn}"
                     Click="SoundOffOnButton" />
 
-            <Button Grid.Column="4"
-                    Style="{StaticResource MinimizeButton}"
-                    Click="MinimizeFrame" />
+            <Slider Minimum="0" Maximum="1" 
+                    Value="0.5"
+                    Grid.Column="1" 
+                    Name="sliderPosition"
+                    Style="{DynamicResource SliderStyle}"
+                    VerticalAlignment="Center"
+                    ValueChanged="sliderPosition_ValueChanged"/>
 
             <Button Grid.Column="5"
-                    Style="{StaticResource MaximizeButton}"
-                    Click="MaximizeFrame" />
-
-            <Button Grid.Column="6"
-                    Style="{StaticResource ExitButton}"
-                    Click="CloseAppClick" />
-
-            <Button Grid.Column="7"
                     x:Name="HelpButton"
                     Style="{StaticResource HelpButtonOff}"
                     Click="HelpOnAppClick" />
+
+            <Button Grid.Column="6"
+                    Style="{StaticResource MinimizeButton}"
+                    Click="MinimizeFrame" />
+
+            <Button Grid.Column="7"
+                    Style="{StaticResource MaximizeButton}"
+                    Click="MaximizeFrame" />
+
+            <Button Grid.Column="8"
+                    Style="{StaticResource ExitButton}"
+                    Click="CloseAppClick" />
+
         </Grid>
     </Grid>
 </Window>

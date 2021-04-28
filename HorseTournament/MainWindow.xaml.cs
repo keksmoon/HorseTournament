@@ -14,7 +14,7 @@ namespace HorseTournament {
     public partial class MainWindow : Window {
         private GameClient gameClient = null;
         private bool help = false;
-        private SoundPlayer mediaBG;
+        private MediaPlayer mediaBG = new MediaPlayer();
         // Иконки: красный игрок, зеленый игрок
         //         красная крепость, зеленая крепость
         public static ImageBrush redHome = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Images/redHome.png")));
@@ -26,15 +26,18 @@ namespace HorseTournament {
             InitializeComponent();
             GameFieldInit();
 
-            var path = Path.Combine(Environment.CurrentDirectory, "Media/bg.wav");
-            mediaBG = new SoundPlayer {
-                SoundLocation = path
-            };
-            mediaBG.Load();
-            mediaBG.PlayLooping();
+            var path = Path.Combine(Environment.CurrentDirectory, "Media/bg.mp3");
+            mediaBG.Open(new Uri($"file://{path}", UriKind.Absolute));
+            mediaBG.MediaEnded += MediaBG_MediaEnded;
+            mediaBG.Play();
 
             nextMoveGo.Text = "Green";
             nextMoveGo.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+        }
+
+        private void MediaBG_MediaEnded(object sender, EventArgs e) {
+            mediaBG.Position = new TimeSpan(0);
+            mediaBG.Play();
         }
 
         /// <summary>
@@ -254,12 +257,16 @@ namespace HorseTournament {
             this.WindowState = WindowState.Normal;
         }
 
+        // Изменение громкости звука
+        private void sliderPosition_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+            => mediaBG.Volume = sliderPosition.Value;
+
         private void SoundOffOnButton(object sender, RoutedEventArgs e) {
             var but = (Button)sender;
 
             if (but.Style == (Style)Application.Current.FindResource("SoundButtonOn")) {
                 but.Style = (Style)Application.Current.FindResource("SoundButtonOff");
-                mediaBG.Stop();
+                mediaBG.Pause();
             }
             else {
                 but.Style = (Style)Application.Current.FindResource("SoundButtonOn");

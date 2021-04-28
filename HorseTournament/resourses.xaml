@@ -22,8 +22,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    <Style TargetType="Button" x:Key="OtherButtonStyle">
+    </Style> 
+    <Style TargetType="Button" x:Key="OtherButtonStyle"> 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -197,6 +197,72 @@
                             <Setter TargetName="SoundButtonImage" Property="Source" Value="Images/faqOn.png" />
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="false"/>
+        <Setter Property="Height" Value="18"/>
+        <Setter Property="Width" Value="18"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Ellipse  Stroke="Black"
+                          StrokeThickness="1"
+                          Name="Ellipse" 
+                          Fill="DarkOrange" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Ellipse" Property="Fill" Value="Yellow"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Ellipse" Property="Fill" Value="Gray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Slider" x:Key="SliderStyle">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" Name="row" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" Name="column" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Name="PART_Border"
+                           BorderBrush="Black" BorderThickness="1"
+                           Padding="2"
+                          Grid.Row="1" Grid.Column="1"
+                           Width="{TemplateBinding Width}"
+                           Height="{TemplateBinding Height}"
+                           Background="#5da130"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center" />
+                        <Track Name="PART_Track"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              Grid.Row="1" Grid.Column="1"
+                              Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}">
+                            <Track.Thumb>
+                                <Thumb Style="{StaticResource SliderThumbStyle}" />
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
